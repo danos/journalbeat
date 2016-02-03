@@ -23,5 +23,5 @@ RUN test -d ${PYTHON_ENV} || virtualenv ${PYTHON_ENV}
 COPY ./tests/system/requirements.txt /tmp/requirements.txt
 RUN . ${PYTHON_ENV}/bin/activate && pip install -Ur /tmp/requirements.txt
 
-
+# Libbeat specific
 RUN mkdir -p /etc/pki/tls/certs
