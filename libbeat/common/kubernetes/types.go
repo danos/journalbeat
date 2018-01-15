@@ -1,4 +1,13 @@
-package add_kubernetes_metadata
+package kubernetes
+
+import (
+	"encoding/json"
+	"strings"
+
+	"github.com/elastic/beats/libbeat/logp"
+
+	corev1 "github.com/ericchiang/k8s/api/v1"
+)
 
 type ObjectMeta struct {
 	Annotations       map[string]string `json:"annotations"`
@@ -97,4 +106,34 @@ type Pod struct {
 	Metadata   ObjectMeta `json:"metadata"`
 	Spec       PodSpec    `json:"spec"`
 	Status     PodStatus  `json:"status"`
+}
+
+// GetContainerID parses the container ID to get the actual ID string
+func (s *PodContainerStatus) GetContainerID() string {
+	cID := s.ContainerID
+	if cID != "" {
+		parts := strings.Split(cID, "//")
+		if len(parts) == 2 {
+			return parts[1]
+		}
+	}
+	return ""
+}
+
+// GetPod converts Pod to our own type
+func GetPod(pod *corev1.Pod) *Pod {
+	bytes, err := json.Marshal(pod)
+	if err != nil {
+		logp.Warn("Unable to marshal %v", pod.String())
+		return nil
+	}
+
+	po := &Pod{}
+	err = json.Unmarshal(bytes, po)
+	if err != nil {
+		logp.Warn("Unable to marshal %v", pod.String())
+		return nil
+	}
+
+	return po
 }
