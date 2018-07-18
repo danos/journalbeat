@@ -15,18 +15,30 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package schema
+package conditions
 
-import (
-	"testing"
+// Or is a compound condition that combines multiple conditions with logical OR.
+type Or []Condition
 
-	"github.com/stretchr/testify/assert"
-)
+// NewOrCondition builds this condition from a slice of Condition objects.
+func NewOrCondition(conditions []Condition) Or {
+	return Or(conditions)
+}
 
-func TestErrors(t *testing.T) {
-	errs := NewErrors()
-	err := NewError("test", "Hello World")
-	errs.AddError(err)
+// Check determines whether the given event matches this condition.
+func (c Or) Check(event ValuesMap) bool {
+	for _, cond := range c {
+		if cond.Check(event) {
+			return true
+		}
+	}
+	return false
+}
 
-	assert.True(t, errs.HasRequiredErrors())
+func (c Or) String() (s string) {
+	for _, cond := range c {
+		s = s + cond.String() + " or "
+	}
+	s = s[:len(s)-len(" or ")] //delete the last or
+	return s
 }

@@ -15,23 +15,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package schema
+package conditions
 
-import (
-	"testing"
+import "testing"
 
-	"github.com/stretchr/testify/assert"
-)
-
-func TestIsError(t *testing.T) {
-	err := NewError("test", "Hello World")
-	assert.Error(t, err)
+func TestHasFieldsMultiFieldPositiveMatch(t *testing.T) {
+	testConfig(t, true, secdTestEvent, &Config{
+		HasFields: []string{"proc.cmdline", "type"},
+	})
 }
 
-func TestType(t *testing.T) {
-	err := NewError("test", "Hello World")
-	assert.True(t, err.IsType(RequiredType))
+func TestHasFieldsSingleFieldNegativeMatch(t *testing.T) {
+	testConfig(t, false, secdTestEvent, &Config{
+		HasFields: []string{"cpu"},
+	})
+}
 
-	err.SetType(OptionalType)
-	assert.True(t, err.IsType(OptionalType))
+func TestHasFieldsMultiFieldNegativeMatch(t *testing.T) {
+	testConfig(t, false, secdTestEvent, &Config{
+		HasFields: []string{"proc", "beat"},
+	})
 }
