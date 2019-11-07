@@ -1,0 +1,56 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: beats
+Source: https://github.com/elastic/beats
+ The source code in this package was imported from the above URL at commit ref
+ `fec835c970c0d2ea34f483c238a1d13be51428f8`, and was "filtered" using the
+ following command to remove other files which were superfluous to successfully
+ building the Journalbeat utility, except if otherwise required (e.g. under the
+ terms of any applicable license):
+ .
+ git filter-branch --tree-filter 'for f in $(ls -a | grep -v journalbeat |\
+ grep -v libbeat | grep -v filebeat | grep -v vendor | grep -v \.$ | grep -v\
+ \.\.$ | gre p -iv license | grep -v NOTICE.txt | grep -v .gitignore); do rm\
+ -rf $f; done' --prune-empty -f
+ .
+ In addition to removing the superfluous code, the filter also removed code
+ which is licensed under the "Elastic License Agreement", a copy of which is
+ included under the `licenses/` directory of this source.
+
+Files: *
+Copyright: 2014-2019 Elasticsearch BV and others
+License: Apache-2.0, or other Apache-2.0 compatible license
+ Licensed to Elasticsearch B.V. under one or more contributor license
+ agreements. See the NOTICE file distributed with this work for additional
+ information regarding copyright ownership. Elasticsearch B.V. licenses this
+ file to you under the Apache License, Version 2.0 (the "License"); you may not
+ use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ .
+ http://www.apache.org/licenses/LICENSE-2.0
+ .
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ License for the specific language governing permissions and limitations under
+ the License.
+ .
+ On Debian systems, the complete text of the Apache License, Version 2 can be
+ found in `/usr/share/common-licenses/Apache-2.0`.
+
+Files: debian/*
+Copyright: 2018-2019 AT&T Intellectual Property. All Rights Reserved.
+License: Apache-2.0
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ .
+ http://www.apache.org/licenses/LICENSE-2.0
+ .
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ .
+ On Debian systems, the complete text of the Apache License, Version 2 can be
+ found in `/usr/share/common-licenses/Apache-2.0`.

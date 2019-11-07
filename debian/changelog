@@ -1,0 +1,5 @@
+journalbeat (6.8.3-0vyatta2) unstable; urgency=medium
+
+  * DANOS Import master
+
+ -- Vyatta Package Maintainers <DL-vyatta-help@att.com>  Fri, 01 Nov 2019 16:41:34 +0000
