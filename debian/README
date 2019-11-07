@@ -1,0 +1,4 @@
+This repo contains journalbeat code from https://github.com/elastic/beats.
+
+Only the files and directories needed to build the community version of
+journalbeat should be present (Apache2 licensed).

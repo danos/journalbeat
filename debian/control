@@ -1,0 +1,21 @@
+Source: journalbeat
+Section: utils
+Priority: optional
+Maintainer: Vyatta Package Maintainers <DL-vyatta-help@att.com>
+Standards-Version: 3.9.8
+Homepage: https://github.com/elastic/beats
+Build-Depends: debhelper (>= 10),
+               dh-golang,
+               golang,
+               libsystemd-dev,
+               pkg-config
+
+Package: journalbeat
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Built-Using: ${misc:Built-Using}
+Description: Export journal logs to Elastic endpoints
+ Journalbeat is the Beat used for exporting logs from systemd-journal based
+ logging systems to Elasticsearch (or other) database systems. It follows the
+ journal very much like `journalctl -f` and sends the live logs to the
+ configured endpoint.
